@@ -4,17 +4,18 @@ contract issuer {
     address public issuerAddr;
     address public coinAddr;
     coin public pluton;
+    uint dayBtcVolume;
+    uint volumeUpdateTimestamp;
 
     struct Rebate {
         uint plutonRewardRate;
+        uint maxPlutonRewardRate;
+        uint minPlutonRewardRate;
+        uint minDayVolumeForReduce;
+        uint dayRebateRateChange;
         uint plutonRewardRateReduceStep;
         uint plutonRewardRateReduce;
-        uint requiredExchangeSpeed;
-        uint currentExchangeSpeedRate;
-        uint lastTimestamp;
         uint baseUnitForRebate;
-        uint minPlutonRewardRate;
-        uint currentExchangeSpeed;
     }
     Rebate public rebate;
 
@@ -26,30 +27,40 @@ contract issuer {
         coinAddr = _plutonAddr;
 
         rebate.baseUnitForRebate = 1000; // accrual 0,1%
-        rebate.plutonRewardRate = 30; // 3%
+        rebate.maxPlutonRewardRate = 30; // 3%
+        rebate.plutonRewardRate = rebate.maxPlutonRewardRate; // 3%
         rebate.minPlutonRewardRate = 10; // 1%
+        rebate.minDayVolumeForReduce = 500; // 500 BTC 
+        rebate.plutonRewardRateReduce = 1; // reduce 0,1% from every 100 BTC 
+        rebate.plutonRewardRateReduceStep = 100; // reduce step 100 BTC
+        rebate.dayRebateRateChange = 0; // Initial data
 
-        rebate.plutonRewardRateReduce = 1; // reduce 0,1% from every plutonRewardRateReduceStep more in action more in action
+        dayBtcVolume = 0;
+        volumeUpdateTimestamp = now;
 
-        rebate.requiredExchangeSpeed = 10; // 10 BTC/sec
-        rebate.plutonRewardRateReduceStep = 1; // for example: every 1 BTC/sec more in action reduce rate on plutonRewardRateReduce
-
-        rebate.lastTimestamp = now;
         pluton = coin(_plutonAddr);
     }
 
     /* issuer functions */
 
-    function getRebate(uint _btcAmount, string txID, address _btcSeller) ownerCheck returns(uint plutonReward) {
-        rebate.currentExchangeSpeed =  _btcAmount / (now - rebate.lastTimestamp);
-        uint reduce;
-        reduce = (rebate.currentExchangeSpeed -  rebate.requiredExchangeSpeed) / rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce;
-        if(reduce > rebate.currentExchangeSpeed) {rebate.plutonRewardRate = rebate.minPlutonRewardRate;}
-        else if(rebate.currentExchangeSpeed > rebate.requiredExchangeSpeed) {
-                rebate.plutonRewardRate = rebate.plutonRewardRate - reduce;}
-                else {rebate.plutonRewardRate = rebate.plutonRewardRate + reduce;}
+    function updRebateRate(uint _lastDayBtcVolume) returns(uint plutonRewardRate) {
+        if(_lastDayBtcVolume > dayBtcVolume) 
+        {
+            rebate.dayRebateRateChange = (_lastDayBtcVolume - dayBtcVolume) / rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce;
+            if(rebate.dayRebateRateChange - rebate.plutonRewardRate < rebate.minPlutonRewardRate) {rebate.plutonRewardRate = rebate.minPlutonRewardRate;}
+                else rebate.plutonRewardRate = rebate.plutonRewardRate - rebate.minPlutonRewardRate;
+        } else {
+            rebate.dayRebateRateChange = (dayBtcVolume - _lastDayBtcVolume) / rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce;
+            if(rebate.dayRebateRateChange + rebate.plutonRewardRate > rebate.maxPlutonRewardRate) {rebate.plutonRewardRate = rebate.maxPlutonRewardRate;}
+                else rebate.plutonRewardRate = rebate.plutonRewardRate + rebate.minPlutonRewardRate;
+        }
+        
+        return(rebate.plutonRewardRate);
 
-        plutonReward = _btcAmount * rebate.plutonRewardRate;
+    }
+
+    function getRebate(uint _btcAmount, string txID, address _btcSeller) ownerCheck returns(uint plutonReward) {
+        
          //   pluton.emmision(plutonReward);
         //    pluton.transfer(plutonReward, _btcSeller);
     }
