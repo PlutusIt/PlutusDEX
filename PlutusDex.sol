@@ -45,7 +45,7 @@ contract PlutusDex {
         if (deposited.btcAsked < btcOffered) {
             btcTraded = btcOffered;
         } else {
-            btcOffered = deposited.btcAsked;
+            btcTraded = deposited.btcAsked;
         }
         uint fiatReceived = deposited.fiatDeposited * (btcTraded / btcOffered);
         deposited.btcAsked -= btcOffered;
