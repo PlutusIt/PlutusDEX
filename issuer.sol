@@ -49,13 +49,13 @@ contract issuer {
     function updRebateRate(uint _lastDayBtcVolume) ownerCheck returns(uint plutonRewardRate) {
         if(_lastDayBtcVolume > dayBtcVolume) 
         {
-            rebate.dayRebateRateChange = (_lastDayBtcVolume - dayBtcVolume) / rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce;
+            rebate.dayRebateRateChange = (_lastDayBtcVolume - dayBtcVolume) / (rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce * rebate.baseUnitForBtcVolume);
             if(rebate.plutonRewardRate - rebate.dayRebateRateChange <= rebate.minPlutonRewardRate) {rebate.plutonRewardRate = rebate.minPlutonRewardRate; dayBtcVolume = _lastDayBtcVolume;}
-                else {rebate.plutonRewardRate = (rebate.plutonRewardRate - rebate.dayRebateRateChange) / rebate.baseUnitForBtcVolume;  dayBtcVolume = _lastDayBtcVolume;}
+                else {rebate.plutonRewardRate = rebate.plutonRewardRate - rebate.dayRebateRateChange;  dayBtcVolume = _lastDayBtcVolume;}
         } else {
-            rebate.dayRebateRateChange = (dayBtcVolume - _lastDayBtcVolume) / rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce;
+            rebate.dayRebateRateChange = (dayBtcVolume - _lastDayBtcVolume) / (rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce * rebate.baseUnitForBtcVolume);
             if(rebate.dayRebateRateChange + rebate.plutonRewardRate >= rebate.maxPlutonRewardRate) {rebate.plutonRewardRate = rebate.maxPlutonRewardRate;  dayBtcVolume = _lastDayBtcVolume;}
-                else {rebate.plutonRewardRate = (rebate.plutonRewardRate + rebate.dayRebateRateChange) / rebate.baseUnitForBtcVolume;  dayBtcVolume = _lastDayBtcVolume;}
+                else {rebate.plutonRewardRate = rebate.plutonRewardRate + rebate.dayRebateRateChange;  dayBtcVolume = _lastDayBtcVolume;}
         }
         
         return(rebate.plutonRewardRate);
