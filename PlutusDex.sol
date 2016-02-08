@@ -16,12 +16,15 @@ contract PlutusDex {
 
     mapping(address => FiatDeposit) fiatDeposits;
 
+    uint btcTradingVolume;
+
     event FiatDeposited(address trader, uint fiatDeposited, CurrencySymbol fiatSymbol, uint btcAsked, bytes20 btcAddress);
 
     event VdcLoaded(bytes32 userVdcIban, uint fiatAmount, CurrencySymbol fiatSymbol);
 
     function PlutusDex() {
         approvedPlutusCentral[msg.sender] = true;
+        btcTradingVolume = 0;
     }
 
     function depositFiat(address trader, uint fiatDeposited, CurrencySymbol fiatSymbol, uint btcAsked, bytes20 btcAddress) {
@@ -48,8 +51,9 @@ contract PlutusDex {
             btcTraded = deposited.btcAsked;
         }
         uint fiatReceived = deposited.fiatDeposited * (btcTraded / btcOffered);
-        deposited.btcAsked -= btcOffered;
+        deposited.btcAsked -= btcTraded;
         deposited.fiatDeposited -= fiatReceived;
+        btcTradingVolume += btcTraded;
         //Notify user
         VdcLoaded(userVdcIban, fiatReceived, deposited.fiatSymbol);
     }
