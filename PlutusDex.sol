@@ -37,7 +37,7 @@ contract PlutusDex {
         FiatDeposited(trader, fiatDeposited, fiatSymbol, btcAsked, btcAddress);
     }
 
-    function offerBtc(address trader, uint btcOffered, bytes32 userVdcIban) {
+    function offerBtc(address trader, uint btcOffered, bytes32 userVdcIban) returns(bool result) {
         if (! approvedPlutusCentral[msg.sender]) {
             //Only approved btc trackers can offer bitcoin
             throw;
@@ -56,5 +56,6 @@ contract PlutusDex {
         btcTradingVolume += btcTraded;
         //Notify user
         VdcLoaded(userVdcIban, fiatReceived, deposited.fiatSymbol, btcTradingVolume);
+        return true;
     }
 }
