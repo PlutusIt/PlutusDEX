@@ -33,7 +33,7 @@ contract plutonUser {
         return result;
     }
 	
-	function offerBtc(address _trader,  uint _btcOffered) plutusCentralAddrCheck returns(bool result) {
+	function offerBtcFromApp(address _trader,  uint _btcOffered) plutusCentralAddrCheck returns(bool result) {
 		PlutusDex plutusDex;
         plutusDex = PlutusDex(plutusDexAddr);
 		result = plutusDex.offerBtc( _trader, _btcOffered, userVdcIban);
