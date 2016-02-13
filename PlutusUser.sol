@@ -1,7 +1,7 @@
 import 'plutons';
 import 'PlutusDex';
 
-contract plutonUser {
+contract PlutusUser {
 	//control addr
 	address owner;
 	// link to token
@@ -17,7 +17,7 @@ contract plutonUser {
 	modifier plutusDexCheck { if (msg.sender == plutusDexAddr) _ }
 
 
-	function plutonUser(bytes32 _userVdcIban) {
+	function PlutusUser(bytes32 _userVdcIban) {
 		owner = msg.sender;
 		userVdcIban = _userVdcIban;
 		//Rewrite when plutons and PlutusDex smart contracts will be created
@@ -32,7 +32,7 @@ contract plutonUser {
         result = pluton.sendCoinFrom(owner, _amount, _to);
         return result;
     }
-	
+
 	function offerBtcFromApp(address _trader,  uint _btcOffered) plutusCentralAddrCheck returns(bool result) {
 		PlutusDex plutusDex;
         plutusDex = PlutusDex(plutusDexAddr);
