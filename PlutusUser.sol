@@ -1,5 +1,5 @@
 import 'plutons';
-import 'PlutusDex';
+import 'plutusdex';
 
 contract PlutusUser {
 	//control addr

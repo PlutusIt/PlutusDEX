@@ -1,5 +1,5 @@
-import 'Plutons';
-import 'PlutusDex';
+import 'plutons';
+import 'plutusdex';
 
 contract Trader {
   event TraderRegistered
