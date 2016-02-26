@@ -1,4 +1,4 @@
-import 'Plutons';
+import 'plutons';
 import 'PlutusDex';
 
 contract PlutusUser {
