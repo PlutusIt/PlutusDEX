@@ -1,18 +1,16 @@
 # Plutus
-This repository will contain the smart contracts that underline Distrubuted EXchange of Plutus.
+This repository will contain the source code that constitutes each component of Plutus Decentralized Exchange Network utilizing Ethereum.
 For more information see (https://plutus.it/) and the soon to be released whitepaper.
-## Plutus-dex
-Plutus-DistributedEXchange. Smart contract. Written in Solidity. https://solidity.readthedocs.org/en/latest/
-Holds information on all open offers to trade fiat currency for Bitcoin or Pluton. Matches offers in of bitcoin or pluton done by plutus app users.
+## PlutusDEX
+The main source code of the Plutus Decentralized Exchange Network (PlutusDEX) written in Solidity. https://solidity.readthedocs.org/en/latest/
+Stores data associated with trades and regulates the trade of fiat currency for Bitcoin or Pluton. Matches Plutus Mobile App users to traders with the best price.
 ## Plutons
-Subcurrency implemented on Ethereum. Used to reward users for using Plutons, and during the crowd-sale.
-Using standardized api, based on currency example (https://github.com/ethereum/dapp-bin/blob/master/standardized_contract_apis/currency.sol)
+Tokens implemented on the Ethereum blockchain. Used to reward users for making purchases on the Plutus Mobile App.
+Uses the standardized Ethereum API and is based on the example: https://github.com/ethereum/dapp-bin/blob/master/standardized_contract_apis/currency.sol
 ## Issuer
-Issues new plutons to reward them to users.
-## Smart contract representing user
-For each trader and plutus user a contract will be instantiated, rather than having one contract holding all traders. Via their own contract the trader and user can interact with Plutus.
-For flexibility the logic in the user contract will contain little logic, logic is encapsulated by other smart contracts that are called from the user contract. Note: because the user is owner of his or her contract, the user is in control on what other smart contracts are called.
+Regulates user rebate rewards and issues Plutons to users accordingly.
+## Plutus User
+Stores all data associated with a single user. Allows the user to send Plutons and to interact with traders via PlutusDEX.
 ### Trader
-Represents one trader.
-### User
-Represents one user.
+Registers a trader with Plutus so they can begin using PlutusDEX.
+
