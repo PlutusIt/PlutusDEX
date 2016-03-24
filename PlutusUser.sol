@@ -1,6 +1,9 @@
 import 'plutons';
 import 'plutusdex';
 
+/**
+ Contract of user of Plutus.
+*/
 contract PlutusUser {
 	//control addr
 	address owner;
