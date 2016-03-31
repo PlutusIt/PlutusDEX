@@ -14,3 +14,14 @@ Stores all data associated with a single user. Allows the user to send Plutons a
 ### Trader
 Registers a trader with Plutus so they can begin using PlutusDEX.
 
+
+
+# Development
+
+## Installation
+* Install truffle. See http://truffle.readthedocs.org/en/latest/getting_started/client/
+* Install ethereum testrpc https://github.com/ethereumjs/testrpc
+
+## Doing Development
+* Run ethereum testnet by executing `testrpc`
+* Run `truffle compile` to compile contracts in contracts dir
