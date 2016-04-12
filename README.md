@@ -23,7 +23,9 @@ Registers a trader with Plutus so they can begin using PlutusDEX.
 * Install ethereum testrpc https://github.com/ethereumjs/testrpc
 * Install bitcoin testnet https://github.com/freewil/bitcoin-testnet-box. Using docker:
 ** https://github.com/freewil/bitcoin-testnet-box#using-with-docker
+** remark: http://testnetwallet.com/wallet looks nice, but haven't used it yet
 
 ## Doing Development
 * Run ethereum testnet by executing `testrpc`
+* Run bitcoin testnet executing `docker run -t -i freewil/bitcoin-testnet-box`
 * Run `truffle compile` to compile contracts in contracts dir
