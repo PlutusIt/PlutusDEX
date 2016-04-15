@@ -1,6 +1,8 @@
 contract coin {}
 
-contract Issuer {
+import "owned";
+
+contract Issuer is owned {
     address public issuerAddr;
     address public coinAddr;
     coin public pluton;
@@ -20,8 +22,6 @@ contract Issuer {
     }
 
     Rebate public rebate;
-
-    modifier ownerCheck { if (msg.sender == issuerAddr) _ }
 
     /*Initial */
     function Issuer(address _issuer, coin _plutonAddr) {
@@ -46,7 +46,7 @@ contract Issuer {
 
     /* issuer functions */
     /* _lastDayBtcVolume need multiply 10 */
-    function updRebateRate(uint _lastDayBtcVolume) ownerCheck returns(uint plutonRewardRate) {
+    function updRebateRate(uint _lastDayBtcVolume) onlyowner returns(uint plutonRewardRate) {
         if(_lastDayBtcVolume > dayBtcVolume)
         {
             rebate.dayRebateRateChange = (_lastDayBtcVolume - dayBtcVolume) / (rebate.plutonRewardRateReduceStep * rebate.plutonRewardRateReduce * rebate.baseUnitForBtcVolume);
@@ -61,7 +61,7 @@ contract Issuer {
         return(rebate.plutonRewardRate);
     }
 
-    function getRebate() ownerCheck returns(uint plutonReward) {
+    function getRebate() onlyowner returns(uint plutonReward) {
         return(rebate.plutonRewardRate);
          //   pluton.emmision(plutonReward);
         //    pluton.transfer(plutonReward, _btcSeller);
