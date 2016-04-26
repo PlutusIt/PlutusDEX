@@ -1,0 +1,9 @@
+version: 1.0.0
+tags: []
+layout:
+  sol_sources: contracts
+  build_dir: build
+dependencies:
+  dappsys: 0.1.2
+ignore: []
+name: plutus-dex
