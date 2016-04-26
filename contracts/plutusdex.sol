@@ -1,4 +1,4 @@
-contract PlutusDex {
+contract plutusdex {
     enum CurrencySymbol { EUR, GBP, USD }
     //Addresses of ethereum accounts that are approved to verify bitcoin transactions,
     //, verify/perform deposit of fiat to escrow account and verify/perform deposit
@@ -22,7 +22,7 @@ contract PlutusDex {
 
     event VdcLoaded(bytes32 userVdcIban, uint fiatAmount, CurrencySymbol fiatSymbol, uint btcTradingVolume);
 
-    function PlutusDex() {
+    function plutusdex() {
         approvedPlutusCentral[msg.sender] = true;
         btcTradingVolume = 0;
     }

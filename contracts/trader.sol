@@ -1,6 +1,7 @@
 import 'plutons';
 import 'plutusdex';
+import "owned";
 
-contract Trader {
-  event TraderRegistered
+contract Trader is owned {
+  event TraderRegistered;
 }

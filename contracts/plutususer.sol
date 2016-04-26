@@ -1,12 +1,11 @@
-import 'plutons';
+import 'owned';
 import 'plutusdex';
+import 'plutons';
 
 /**
  Contract of user of Plutus.
 */
-contract PlutusUser {
-	//control addr
-	address owner;
+contract PlutusUser is owned {
 	// link to token
 	address plutonAddr;
 	//PlutusDex address
@@ -15,7 +14,6 @@ contract PlutusUser {
 	bytes32 userVdcIban;
 	address plutusApprovedCentralAddr;
 
-	modifier ownerCheck { if (msg.sender == owner) _ }
 	modifier plutusCentralAddrCheck { if (msg.sender == plutusApprovedCentralAddr) _ }
 	modifier plutusDexCheck { if (msg.sender == plutusDexAddr) _ }
 
