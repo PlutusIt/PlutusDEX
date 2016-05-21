@@ -3,7 +3,8 @@ contract plutusdex {
     //Addresses of ethereum accounts that are approved to verify bitcoin transactions,
     //, verify/perform deposit of fiat to escrow account and verify/perform deposit
     //of fiat to vdc
-    mapping(address => bool) approvedPlutusCentral;
+    mapping(address => bool) approvedTraders;
+
 
     struct FiatDeposit {
         address trader;
@@ -23,12 +24,12 @@ contract plutusdex {
     event VdcLoaded(bytes32 userVdcIban, uint fiatAmount, CurrencySymbol fiatSymbol, uint btcTradingVolume);
 
     function plutusdex() {
-        approvedPlutusCentral[msg.sender] = true;
+        approvedTraders[msg.sender] = true;
         btcTradingVolume = 0;
     }
 
     function depositFiat(address trader, uint fiatDeposited, CurrencySymbol fiatSymbol, uint btcAsked, bytes20 btcAddress) {
-        if (! approvedPlutusCentral[msg.sender]) {
+        if (! approvedTraders[msg.sender]) {
             //Only approved fiat trackers can make deposit
             throw;
         }
@@ -38,7 +39,7 @@ contract plutusdex {
     }
 
     function offerBtc(address trader, uint btcOffered, bytes32 userVdcIban) returns(bool result) {
-        if (! approvedPlutusCentral[msg.sender]) {
+        if (! approvedTraders[msg.sender]) {
             //Only approved btc trackers can offer bitcoin
             throw;
         }
