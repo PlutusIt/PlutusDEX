@@ -60,3 +60,6 @@ target/
 
 # Mix IDE
 package
+
+# Ethereum/Truffle
+*.sol.js
