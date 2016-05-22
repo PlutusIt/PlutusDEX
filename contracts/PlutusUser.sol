@@ -6,38 +6,25 @@ import "PlutusDex.sol";
  Contract of user of Plutus.
 */
 contract PlutusUser is owned {
-	// link to token
-	address plutonAddr;
-	//PlutusDex address
-	address plutusDexAddr;
+
+	Plutons plutons;
+	PlutusDex plutusDex;
 	//Virtual debit card ID
 	bytes32 userVdcIban;
 	address plutusApprovedCentralAddr;
 
-	modifier plutusCentralAddrCheck { if (msg.sender == plutusApprovedCentralAddr) _ }
-	modifier plutusDexCheck { if (msg.sender == plutusDexAddr) _ }
-
-
-	function PlutusUser(bytes32 _userVdcIban) {
+	function PlutusUser(bytes32 _userVdcIban, address _plutonsAddr, address _plutusDexAddr) {
 		owner = msg.sender;
 		userVdcIban = _userVdcIban;
-		//Rewrite when plutons and PlutusDex smart contracts will be created
-		plutusApprovedCentralAddr = 0xa;
-		plutonAddr = 0xa;
-		plutusDexAddr = 0xa;
+		plutons = Plutons(plutons);
+		plutusDex = PlutusDex(plutusDex);
 	}
 
-    function sendTokenFromDex(address _to, uint _amount) plutusDexCheck returns(bool result) {
-        Plutons pluton;
-        pluton = Plutons(plutonAddr);
-        result = pluton.transferFrom(owner, _to, _amount);
-        return result;
-    }
+  function sendTokenFromDex(address _to, uint _amount) onlyowner returns(bool result) {
+        return plutons.transferFrom(owner, _to, _amount);
+  }
 
-	function offerBtcFromApp(address _trader,  uint _btcOffered) plutusCentralAddrCheck returns(bool result) {
-		PlutusDex plutusDex;
-    plutusDex = PlutusDex(plutusDexAddr);
-		result = plutusDex.offerBtc( _trader, _btcOffered, userVdcIban);
-		return result;
+	function offerBtcFromApp(address _trader,  uint _btcOffered) onlyowner returns(bool result) {
+		return plutusDex.offerBtc( _trader, _btcOffered, userVdcIban);
 	}
 }
