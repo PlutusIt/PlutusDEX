@@ -5,6 +5,9 @@ contract PlutusDex {
     //of fiat to vdc
     mapping(address => bool) approvedTraders;
 
+    modifier aprrovedTrader() {
+      if(approvedTraders[msg.sender]) _
+    }
 
     struct FiatDeposit {
         address trader;
@@ -28,21 +31,13 @@ contract PlutusDex {
         btcTradingVolume = 0;
     }
 
-    function depositFiat(address trader, uint fiatDeposited, CurrencySymbol fiatSymbol, uint btcAsked, bytes20 btcAddress) {
-        if (! approvedTraders[msg.sender]) {
-            //Only approved fiat trackers can make deposit
-            throw;
-        }
+    function depositFiat(address trader, uint fiatDeposited, CurrencySymbol fiatSymbol, uint btcAsked, bytes20 btcAddress) aprrovedTrader {
         fiatDeposits[trader] = FiatDeposit(trader, fiatDeposited, fiatSymbol, btcAsked, btcAddress);
         //Emit event, to notify all plutus-users
         FiatDeposited(trader, fiatDeposited, fiatSymbol, btcAsked, btcAddress);
     }
 
-    function offerBtc(address trader, uint btcOffered, bytes32 userVdcIban) returns(bool result) {
-        if (! approvedTraders[msg.sender]) {
-            //Only approved btc trackers can offer bitcoin
-            throw;
-        }
+    function offerBtc(address trader, uint btcOffered, bytes32 userVdcIban) aprrovedTrader returns(bool result) {
         //TODO some Null check
         FiatDeposit deposited = fiatDeposits[trader];
         uint btcTraded;
