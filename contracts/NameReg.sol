@@ -1,4 +1,4 @@
-contract namereg {
+contract NameReg {
     struct RegistryEntry {
         address owner;
         address addr;
