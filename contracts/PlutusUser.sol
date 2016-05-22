@@ -12,7 +12,7 @@ contract PlutusUser is owned {
 	//Virtual debit card ID
 	bytes32 userVdcIban;
 	address plutusApprovedCentralAddr;
-
+	//TODO going to use a namereg for these addresses
 	function PlutusUser(bytes32 _userVdcIban, address _plutonsAddr, address _plutusDexAddr) {
 		owner = msg.sender;
 		userVdcIban = _userVdcIban;
