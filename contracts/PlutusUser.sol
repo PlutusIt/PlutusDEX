@@ -1,5 +1,5 @@
 import "owned.sol";
-import "plutons.sol";
+import "Plutons.sol";
 import "PlutusDex.sol";
 
 /**
@@ -28,8 +28,8 @@ contract PlutusUser is owned {
 	}
 
     function sendTokenFromDex(address _to, uint _amount) plutusDexCheck returns(bool result) {
-        plutons pluton;
-        pluton = plutons(plutonAddr);
+        Plutons pluton;
+        pluton = Plutons(plutonAddr);
         result = pluton.transferFrom(owner, _to, _amount);
         return result;
     }
