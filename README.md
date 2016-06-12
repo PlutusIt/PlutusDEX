@@ -1,12 +1,15 @@
 # Plutus
 This repository will contain the source code that constitutes each component of Plutus Decentralized Exchange Network utilizing Ethereum.
 For more information see (https://plutus.it/) and the Plutus white paper (https://plutus.it/assets/Plutus.it-White-Paper-v1.0.pdf).
+## Plutons
+Tokens implemented on the Ethereum blockchain. Used to reward users for making purchases on the Plutus Mobile App.
+Uses the (draft) Token standard (https://github.com/ethereum/EIPs/issues/20) and is based on the example: https://github.com/ethereum/dapp-bin/blob/master/standardized_contract_apis/currency.sol
+The Pluton contract will be created by the Plutus board, and have 2,000,000 tokens initially. The first initial 850,000 Plutons will be distributed after the crowdsale, as explained at https://getplutons.plutus.it/.
+The remaining tokens will be distributed by the rebate contract, which in turn is controlled by the PlutusDEX.
+
 ## PlutusDEX
 The main source code of the Plutus Decentralized Exchange Network (PlutusDEX - https://dex.plutus.it) written in Solidity (https://solidity.readthedocs.org/en/latest/).
 Stores data associated with trades and regulates the trade of fiat currency for Bitcoin or Pluton. Matches Plutus Mobile App users to traders with the best price.
-## Plutons
-Tokens implemented on the Ethereum blockchain. Used to reward users for making purchases on the Plutus Mobile App.
-Uses the standardized Ethereum API and is based on the example: https://github.com/ethereum/dapp-bin/blob/master/standardized_contract_apis/currency.sol
 ## Issuer
 Regulates user rebate rewards and issues Plutons to users accordingly.
 ## Plutus User

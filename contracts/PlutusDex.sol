@@ -37,6 +37,10 @@ contract PlutusDex {
         FiatDeposited(trader, fiatDeposited, fiatSymbol, btcAsked, btcAddress);
     }
 
+    /**
+     * Offer amount of BTC to specified trader.
+     * Handling of cheapest price should all be done offchain.
+     * /
     function offerBtc(address trader, uint btcOffered, bytes32 userVdcIban) aprrovedTrader returns(bool result) {
         //TODO some Null check
         FiatDeposit deposited = fiatDeposits[trader];
