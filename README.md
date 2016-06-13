@@ -4,7 +4,7 @@ For more information see (https://plutus.it/) and the Plutus white paper (https:
 ## Plutons
 Tokens implemented on the Ethereum blockchain. Used to reward users for making purchases on the Plutus Mobile App.
 Uses the (draft) Token standard (https://github.com/ethereum/EIPs/issues/20) and is based on the example: https://github.com/ethereum/dapp-bin/blob/master/standardized_contract_apis/currency.sol
-The Pluton contract will be created by the Plutus board, and have 2,000,000 tokens initially. The first initial 850,000 Plutons will be distributed after the crowdsale, as explained at https://getplutons.plutus.it/.
+The Pluton contract will be created by the Plutus board, and have 20,000,000 tokens initially. The first initial 850,000 Plutons will be distributed after the crowdsale, as explained at https://getplutons.plutus.it/.
 The remaining tokens will be distributed by the rebate contract, which in turn is controlled by the PlutusDEX.
 
 ## PlutusDEX
