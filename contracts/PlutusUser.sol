@@ -5,6 +5,8 @@ import "NameReg.sol";
 
 /**
  Contract of user of Plutus.
+
+ Work in progress. Do no use yet
 */
 contract PlutusUser is owned {
 	//TODO conform to std contract if any
