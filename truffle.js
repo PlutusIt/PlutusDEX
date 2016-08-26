@@ -10,7 +10,8 @@ module.exports = {
     "images/": "images/"
   },
   deploy: [
-    "Plutons"
+    "Pluton",
+    "PlutonDistribution"
   ],
   rpc: {
     host: "localhost",
