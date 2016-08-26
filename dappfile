@@ -1,0 +1,9 @@
+version: 0.0.1
+tags: []
+layout:
+  sol_sources: contracts
+  build_dir: build
+dependencies:
+  erc20: 1.0.0
+ignore: []
+name: plutus-dex
