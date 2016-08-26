@@ -32,3 +32,13 @@ Registers a trader with Plutus so they can begin using PlutusDEX.
 * Run ethereum testnet by executing `testrpc`
 * Run bitcoin testnet executing `docker run -t -i freewil/bitcoin-testnet-box`
 * Run `truffle compile` to compile contracts in contracts dir
+
+## Deployment
+* To deploy on test:
+** Run `geth --rpc --testnet --unlock 0`
+** `truffle deploy -e test`
+* To deploy on production:
+** Run `geth --rpc --unlock 0`
+   Where you can replace the 0 with your preferred account
+** `truffle deploy -e production`
+In both cases, add the generated contract files as well, and note the addresses.
