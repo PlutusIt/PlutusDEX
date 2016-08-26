@@ -1,5 +1,5 @@
 import "owned.sol";
-import "Plutons.sol";
+import "Pluton.sol";
 import "PlutusDex.sol";
 import "NameReg.sol";
 
@@ -19,8 +19,8 @@ contract PlutusUser is owned {
 	}
 
   function sendTokenFromDex(address _to, uint _amount) onlyowner returns(bool result) {
-  		Plutons plutons = Plutons(namereg.addr('Plutons'));
-        return plutons.transferFrom(owner, _to, _amount);
+  		Pluton pluton = Pluton(namereg.addr('Plutons'));
+        return pluton.transferFrom(owner, _to, _amount);
   }
 
 	function offerBtcFromApp(address _trader,  uint _btcOffered) onlyowner returns(bool result) {
