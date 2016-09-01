@@ -1,14 +1,21 @@
 import "owned.sol";
 
 contract PlutonDistribution is owned {
-  mapping ( address => uint256 ) amounts;
+  struct EtherTransaction {
+       bytes[4] tx;
+       uint256 plutonAmount; //plutons*100000000000000000
+   }
 
-  function setAmount(address _account, uint256 amount) {
-    amounts[_account] = amount;
-  }
+   struct BitcoinTransaction {
+        bytes[4] tx;
+        uint256 account;
+        uint256 plutonAmount; //plutons*100000000000000000
+    }
 
-  function amountOf(address _account) constant returns (uint256 balance) {
-    return amounts[_account];
+//EtherTransaction[1] etherTransactions = [EtherTransaction(hex"5487b714c0659731efaf9021e2ac161153e01b0259221f378a4202551af52695",1184207878095000)];
+//BitcoinTransaction[695] bitcoinTransactions;
+
+  function PlutonDistribution() {
   }
 
   function distributePlutons() onlyowner {
