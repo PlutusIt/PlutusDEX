@@ -1,24 +1,21 @@
-import "owned.sol";
+import "mortal.sol";
 
-contract PlutonDistribution is owned {
-  struct EtherTransaction {
-       bytes[4] tx;
-       uint256 plutonAmount; //plutons*100000000000000000
-   }
+contract PlutonDistribution is mortal {
 
-   struct BitcoinTransaction {
-        bytes[4] tx;
-        uint256 account;
-        uint256 plutonAmount; //plutons*100000000000000000
-    }
-
+  mapping ( address => uint256 ) distributedAmount;
 //EtherTransaction[1] etherTransactions = [EtherTransaction(hex"5487b714c0659731efaf9021e2ac161153e01b0259221f378a4202551af52695",1184207878095000)];
 //BitcoinTransaction[695] bitcoinTransactions;
 
   function PlutonDistribution() {
   }
 
-  function distributePlutons() onlyowner {
-    // TODO
+  function distributeIfNeeded(address _toAddress, uint256 _totalAmount) onlyowner returns (bool _success)  {
+    uint256 _amountDistributed = distributedAmount[_toAddress];
+    uint256 _amountLeft = _totalAmount - _amountDistributed;
+    if (_amountLeft>0) {
+      distributedAmount[_toAddress]=distributedAmount[_toAddress]+_amountLeft;
+    }
+    _success = true;
   }
+
 }
